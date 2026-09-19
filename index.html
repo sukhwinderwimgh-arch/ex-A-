@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>For Amrit</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "SF Pro Text",
+                "Segoe UI",
+                sans-serif;
+
+            color: white;
+            background: #17131d;
+        }
+
+        /* =========================
+           ANIMATED BACKGROUND
+        ========================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -2;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(255, 166, 180, 0.65),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(194, 165, 255, 0.55),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 50% 80%,
+                    rgba(255, 191, 145, 0.55),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    135deg,
+                    #39253d,
+                    #201d36,
+                    #3a2735
+                );
+
+            background-size: 180% 180%;
+            animation: backgroundMove 16s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 20% 100%;
+            }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.35;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+
+        .orb.one {
+            width: 300px;
+            height: 300px;
+            background: #ff9fb3;
+            top: -100px;
+            left: -80px;
+        }
+
+        .orb.two {
+            width: 350px;
+            height: 350px;
+            background: #a99bff;
+            right: -120px;
+            top: 10%;
+            animation-delay: -4s;
+        }
+
+        .orb.three {
+            width: 280px;
+            height: 280px;
+            background: #ffbd8d;
+            bottom: -100px;
+            left: 35%;
+            animation-delay: -7s;
+        }
+
+        @keyframes floatOrb {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(80px, 50px) scale(1.2);
+            }
+        }
+
+        /* =========================
+           GLASS EFFECT
+        ========================= */
+
+        .glass {
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.20);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.20),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+        }
+
+        /* =========================
+           PAGES
+        ========================= */
+
+        .website {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        .page {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform: translateY(25px) scale(0.98);
+
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease,
+                visibility 0.7s ease;
+        }
+
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        /* =========================
+           CONTENT CARD
+        ========================= */
+
+        .card {
+            width: min(720px, 100%);
+            padding: 55px 50px;
+
+            border-radius: 32px;
+
+            text-align: center;
+        }
+
+        .small-label {
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+
+            opacity: 0.65;
+
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(38px, 7vw, 68px);
+            line-height: 1.05;
+            font-weight: 600;
+            letter-spacing: -2px;
+
+            margin-bottom: 28px;
+        }
+
+        .text {
+            font-size: clamp(17px, 2vw, 20px);
+            line-height: 1.8;
+
+            font-weight: 400;
+
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        .text p {
+            margin-bottom: 22px;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: white;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .button {
+            margin-top: 25px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 170px;
+            padding: 15px 25px;
+
+            border-radius: 999px;
+
+            border: 1px solid rgba(255, 255, 255, 0.30);
+
+            background: rgba(255, 255, 255, 0.13);
+
+            color: white;
+
+            font-size: 16px;
+            font-weight: 500;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-3px) scale(1.03);
+
+            background: rgba(255, 255, 255, 0.20);
+
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.20),
+                inset 0 1px 0 rgba(255, 255, 255, 0.30);
+        }
+
+        .button:active {
+            transform: scale(0.96);
+        }
+
+        /* =========================
+           EMOJI
+        ========================= */
+
+        .emoji {
+            position: fixed;
+
+            pointer-events: none;
+
+            font-size: 30px;
+
+            animation: emojiFloat 3s ease-out forwards;
+
+            z-index: 10;
+        }
+
+        @keyframes emojiFloat {
+            0% {
+                opacity: 0;
+                transform:
+                    translateY(30px)
+                    scale(0.5)
+                    rotate(-10deg);
+            }
+
+            20% {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1)
+                    rotate(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                    translateY(-180px)
+                    scale(1.2)
+                    rotate(12deg);
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .page {
+                padding: 18px;
+            }
+
+            .card {
+                padding: 38px 25px;
+                border-radius: 26px;
+            }
+
+            h1 {
+                letter-spacing: -1px;
+                margin-bottom: 22px;
+            }
+
+            .text {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+
+            .button {
+                width: 100%;
+                max-width: 240px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated background -->
+    <div class="background">
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+        <div class="orb three"></div>
+    </div>
+
+    <main class="website">
+
+        <!-- =========================
+             PAGE 1
+        ========================== -->
+
+        <section class="page active" id="page1">
+
+            <div class="card glass">
+
+                <div class="small-label">
+                    A little corner of the internet
+                </div>
+
+                <h1>
+                    Hello Amrit, I'm Sukh
+                </h1>
+
+                <div class="text">
+
+                    <p>
+                        I made this little corner of the internet for you.
+                    </p>
+
+                    <p>
+                        Not to change anything, not to ask for anything—
+                        just to keep a few memories, words, and moments
+                        that once meant a lot to me.
+                    </p>
+
+                    <p>
+                        So… welcome. ❤️
+                    </p>
+
+                </div>
+
+                <button
+                    class="button"
+                    onclick="nextPage(2)"
+                >
+                    Continue →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PAGE 2
+        ========================== -->
+
+        <section class="page" id="page2">
+
+            <div class="card glass">
+
+                <div class="small-label">
+                    Something I wanted to say
+                </div>
+
+                <div class="text">
+
+                    <p>
+                        I don't know what you think of me now,
+                        or if I'm just a part of your past.
+                    </p>
+
+                    <p>
+                        But I'm truly sorry. Because of me,
+                        your mother found out about us, and I know
+                        that may have caused problems for you too.
+                    </p>
+
+                    <p>
+                        It was my mistake. I should have been more
+                        careful and shouldn't have stepped in the way I did.
+                    </p>
+
+                    <p class="highlight">
+                        I'm genuinely sorry, Amrit.
+                    </p>
+
+                </div>
+
+                <button
+                    class="button"
+                    onclick="nextPage(3)"
+                >
+                    Continue →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PAGE 3
+        ========================== -->
+
+        <section class="page" id="page3">
+
+            <div class="card glass">
+
+                <div class="small-label">
+                    One last thing
+                </div>
+
+                <div class="text">
+
+                    <p>
+                        I don't know what you think of me now.
+                    </p>
+
+                    <p>
+                        Maybe you hate me, maybe you don't care anymore,
+                        or maybe I'm just a memory now.
+                    </p>
+
+                    <p>
+                        Whatever it is, I respect it.
+                    </p>
+
+                    <p>
+                        I just wanted to say goodbye properly.
+                    </p>
+
+                    <p class="highlight">
+                        Take care of yourself.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* =========================
+           PAGE NAVIGATION
+        ========================== */
+
+        function nextPage(pageNumber) {
+
+            document.querySelectorAll(".page").forEach(page => {
+                page.classList.remove("active");
+            });
+
+            const next = document.getElementById("page" + pageNumber);
+
+            next.classList.add("active");
+
+            createEmojis(pageNumber);
+        }
+
+
+        /* =========================
+           EMOJI ANIMATIONS
+        ========================== */
+
+        function createEmojis(pageNumber) {
+
+            let emojis = [];
+
+            if (pageNumber === 2) {
+                emojis = ["🤍", "💭", "🫂", "✨"];
+            }
+
+            if (pageNumber === 3) {
+                emojis = ["🤍", "✨", "🕊️", "🌙"];
+            }
+
+            emojis.forEach((emoji, index) => {
+
+                setTimeout(() => {
+
+                    const element = document.createElement("div");
+
+                    element.className = "emoji";
+
+                    element.textContent = emoji;
+
+                    element.style.left =
+                        Math.random() * 90 + 5 + "%";
+
+                    element.style.bottom =
+                        Math.random() * 20 + 10 + "%";
+
+                    document.body.appendChild(element);
+
+                    setTimeout(() => {
+                        element.remove();
+                    }, 3000);
+
+                }, index * 350);
+
+            });
+        }
+
+    </script>
+
+</body>
+</html>
